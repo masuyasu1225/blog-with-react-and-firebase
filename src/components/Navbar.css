@@ -15,3 +15,7 @@ nav a {
 nav a:hover {
   color: cadetblue;
 }
+
+nav a svg {
+  margin-right: 5px;
+}
