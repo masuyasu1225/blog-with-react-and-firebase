@@ -1,5 +1,6 @@
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { auth, db } from "../firebase";
 import "./Home.css";
 
@@ -32,6 +33,9 @@ const Home = () => {
               <h1>{post.title}</h1>
             </div>
             <div className="postTextContainer">{post.postsText}</div>
+            <Link className="postDatail" to={`/createpost/${post.id}`}>
+              詳細を見る
+            </Link>
             <div className="nameAndDeleteButton">
               <h3>@{post.author.username}</h3>
               {post.author.id === auth.currentUser?.uid && (
