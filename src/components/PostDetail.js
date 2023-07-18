@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import CreateReply from "./CreateReply";
-const PostDetail = ({ match }) => {
+import Reply from "./Reply";
+import { useParams } from "react-router-dom";
+
+const PostDetail = () => {
   const [post, setPost] = useState();
+  const { id } = useParams();
 
   useEffect(() => {
     const getPost = async () => {
-      const docRef = doc(db, "posts", match.params.id);
+      const docRef = doc(db, "posts", id);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -18,7 +21,7 @@ const PostDetail = ({ match }) => {
     };
 
     getPost();
-  }, [match.params.id]);
+  }, [id]);
 
   return (
     <div className="postDetailPage">
@@ -26,7 +29,7 @@ const PostDetail = ({ match }) => {
         <>
           <h1>{post.title}</h1>
           <p>{post.postsText}</p>
-          <CreateReply postId={match.params.id} />
+          <Reply postId={id} />
         </>
       )}
     </div>

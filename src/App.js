@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import CreatePost from "./components/CreatePost";
 import Reply from "./components/Reply";
+import PostDetail from "./components/PostDetail";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import Navbar from "./components/Navbar";
@@ -20,6 +21,7 @@ function App() {
           path="/createpost"
           element={<CreatePost isAuth={isAuth} />}
         ></Route>
+        <Route path="/createpost/:id" element={<PostDetail />} />
         <Route path="/reply" element={<Reply isAuth={isAuth} />}></Route>
         <Route path="/login" element={<Login setIsAuth={setIsAuth} />}></Route>
         <Route

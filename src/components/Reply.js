@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../firebase";
 
-const CreateReply = ({ postId }) => {
+const Reply = ({ postId }) => {
   const [replyText, setReplyText] = useState();
 
   const createReply = async () => {
@@ -34,4 +34,4 @@ const CreateReply = ({ postId }) => {
   );
 };
 
-export default CreateReply;
+export default Reply;
