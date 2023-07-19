@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  query,
+  getDocs,
+  where,
+} from "firebase/firestore";
 import { db } from "../firebase";
 import Reply from "./Reply";
 import { useParams } from "react-router-dom";
 
 const PostDetail = () => {
   const [post, setPost] = useState();
+  const [replies, setReplies] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
-    const getPost = async () => {
+    const getPostAndReplies = async () => {
       const docRef = doc(db, "posts", id);
       const docSnap = await getDoc(docRef);
 
@@ -18,9 +26,13 @@ const PostDetail = () => {
       } else {
         console.log("No such document!");
       }
+
+      const q = query(collection(db, "replies"), where("postId", "==", id));
+      const querySnapshot = await getDocs(q);
+      setReplies(querySnapshot.docs.map((doc) => doc.data()));
     };
 
-    getPost();
+    getPostAndReplies();
   }, [id]);
 
   return (
@@ -30,6 +42,12 @@ const PostDetail = () => {
           <h1>{post.title}</h1>
           <p>{post.postsText}</p>
           <Reply postId={id} />
+          {replies.map((reply, index) => (
+            <div key={index}>
+              <h3>{reply.author.username}</h3>
+              <p>{reply.replyText}</p>
+            </div>
+          ))}
         </>
       )}
     </div>
