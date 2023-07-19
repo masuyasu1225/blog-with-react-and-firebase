@@ -41,6 +41,7 @@ const PostDetail = () => {
         <>
           <h1>{post.title}</h1>
           <p>{post.postsText}</p>
+          <p>{post.createdAt.toDate().toLocaleString()}</p>
           <Reply postId={id} />
           {replies.map((reply, index) => (
             <div key={index}>

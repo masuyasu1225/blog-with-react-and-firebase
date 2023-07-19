@@ -51,6 +51,9 @@ const Home = () => {
                 </button>
               )}
             </div>
+            <div className="postDateTime">
+              {post.createdAt.toDate().toLocaleString()}
+            </div>
           </div>
         );
       })}
