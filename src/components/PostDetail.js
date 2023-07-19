@@ -46,6 +46,7 @@ const PostDetail = () => {
             <div key={index}>
               <h3>{reply.author.username}</h3>
               <p>{reply.replyText}</p>
+              <p>{reply.createdAt.toDate().toLocaleString()}</p>
             </div>
           ))}
         </>

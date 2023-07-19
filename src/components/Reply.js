@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../firebase";
 
 const Reply = ({ postId }) => {
@@ -14,6 +14,7 @@ const Reply = ({ postId }) => {
           username: auth.currentUser.displayName,
           id: auth.currentUser.uid,
         },
+        createdAt: serverTimestamp(),
       });
     }
   };
