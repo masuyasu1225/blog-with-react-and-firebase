@@ -37,6 +37,7 @@ const CreatePost = ({ isAuth }) => {
         <div className="inputPost">
           <div className="title">タイトル</div>
           <input
+            className="titleForm"
             type="text"
             placeholder="タイトルを記入"
             onChange={(e) => setTitle(e.target.value)}
