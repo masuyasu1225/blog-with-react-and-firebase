@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./PostDetail.css";
 import {
   collection,
   doc,
@@ -39,12 +40,14 @@ const PostDetail = () => {
     <div className="postDetailPage">
       {post && (
         <>
-          <h1>{post.title}</h1>
-          <p>{post.postsText}</p>
-          <p>{post.createdAt.toDate().toLocaleString()}</p>
-          <Reply postId={id} />
+          <div className="createPost">
+            <h1>{post.title}</h1>
+            <p>{post.postsText}</p>
+            <p>{post.createdAt.toDate().toLocaleString()}</p>
+          </div>
+          <Reply postId={id} className="" />
           {replies.map((reply, index) => (
-            <div key={index}>
+            <div key={index} className="replyContainer">
               <h3>{reply.author.username}</h3>
               <p>{reply.replyText}</p>
               <p>{reply.createdAt.toDate().toLocaleString()}</p>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../firebase";
+import "./Reply.css";
 
 const Reply = ({ postId }) => {
   const [replyText, setReplyText] = useState();
