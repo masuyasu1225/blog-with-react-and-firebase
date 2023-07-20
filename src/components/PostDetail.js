@@ -36,6 +36,11 @@ const PostDetail = () => {
     getPostAndReplies();
   }, [id]);
 
+  //リプライを更新
+  const handleNewReply = (newReply) => {
+    setReplies((prevReplies) => [...prevReplies, newReply]);
+  };
+
   return (
     <div className="postDetailPage">
       {post && (
@@ -52,7 +57,7 @@ const PostDetail = () => {
               <p>{reply.createdAt.toDate().toLocaleString()}</p>
             </div>
           ))}
-          <Reply postId={id} />
+          <Reply postId={id} onNewReply={handleNewReply} />
         </>
       )}
     </div>
