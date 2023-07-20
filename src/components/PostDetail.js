@@ -45,7 +45,6 @@ const PostDetail = () => {
             <p>{post.postsText}</p>
             <p>{post.createdAt.toDate().toLocaleString()}</p>
           </div>
-          <Reply postId={id} className="" />
           {replies.map((reply, index) => (
             <div key={index} className="replyContainer">
               <h3>{reply.author.username}</h3>
@@ -53,6 +52,7 @@ const PostDetail = () => {
               <p>{reply.createdAt.toDate().toLocaleString()}</p>
             </div>
           ))}
+          <Reply postId={id} />
         </>
       )}
     </div>
