@@ -2,7 +2,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 90vh;
+  height: auto;
+  padding: 20px;
 }
 
 .postContainer {
@@ -11,15 +12,15 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 400px;
+  min-height: 500px;
   width: 500px;
   gap: 10px;
   padding: 0px 40px;
   box-shadow: 15px 15px 7px -8px #8f8f8f;
 }
 
-.postContainer h1 {
-  margin: 0;
+.postHeader {
+  margin: 20px 0 0 0;
 }
 
 .postContainer input {
@@ -30,14 +31,15 @@
 }
 
 .postContainer textarea {
-  width: 100px;
-  height: 120px;
+  width: 480px;
+  height: 480px;
   outline: none;
   padding: 7px;
 }
 
 .postButton {
   padding: 10px 0;
+  margin: 0 0 20px 0;
   background-color: #3d77a5;
   border: none;
   box-shadow: 5px 9px 15px -5px;

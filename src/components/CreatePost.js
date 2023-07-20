@@ -33,9 +33,9 @@ const CreatePost = ({ isAuth }) => {
   return (
     <div className="createPostPage">
       <div className="postContainer">
-        <h1>記事を投稿する</h1>
+        <h1 className="postHeader">記事を投稿する</h1>
         <div className="inputPost">
-          <div>タイトル</div>
+          <div className="title">タイトル</div>
           <input
             type="text"
             placeholder="タイトルを記入"
