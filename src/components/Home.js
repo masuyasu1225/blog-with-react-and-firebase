@@ -3,10 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
 import "./Home.css";
+import ConfirmModal from "./ConfirmModal";
 
 const Home = () => {
   const [postList, setPostList] = useState([]);
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [postIdToDelete, setPostIdToDelete] = useState(null);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -16,9 +19,22 @@ const Home = () => {
     getPosts();
   }, []);
 
-  const handleDelete = async (id) => {
-    await deleteDoc(doc(db, "posts", id));
-    window.location.href = "/";
+  const handleDelete = (id) => {
+    setPostIdToDelete(id);
+    setIsModalOpen(true);
+  };
+
+  const handleConfirm = async () => {
+    if (postIdToDelete) {
+      await deleteDoc(doc(db, "posts", postIdToDelete));
+      window.location.href = "/";
+      setIsModalOpen(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setPostIdToDelete(null);
+    setIsModalOpen(false);
   };
 
   const handleDetail = (id) => {
@@ -50,6 +66,11 @@ const Home = () => {
                   削除
                 </button>
               )}
+              <ConfirmModal
+                isOpen={isModalOpen}
+                onRequestClose={handleCancel}
+                onConfirm={handleConfirm}
+              />
             </div>
             <div className="postDateTime">
               {post.createdAt.toDate().toLocaleString()}
