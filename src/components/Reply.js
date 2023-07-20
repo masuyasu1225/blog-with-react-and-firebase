@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  getDoc,
+} from "firebase/firestore";
 import { auth, db } from "../firebase";
 import "./Reply.css";
 
-const Reply = ({ postId }) => {
+const Reply = ({ postId, onNewReply }) => {
   const [replyText, setReplyText] = useState();
 
   const createReply = async () => {
     if (auth.currentUser) {
-      await addDoc(collection(db, "replies"), {
+      const docRef = await addDoc(collection(db, "replies"), {
         postId: postId,
         replyText: replyText,
         author: {
@@ -17,6 +22,11 @@ const Reply = ({ postId }) => {
         },
         createdAt: serverTimestamp(),
       });
+
+      //リプライ一覧を更新
+      const docSnap = await getDoc(docRef);
+      const newReply = { ...docSnap.data(), id: docRef.id };
+      onNewReply(newReply);
     }
   };
 
