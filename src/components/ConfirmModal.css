@@ -1,0 +1,55 @@
+.modalOverlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.confirmationModal {
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 200px;
+  width: 300px;
+  gap: 10px;
+  padding: 20px;
+  box-shadow: 15px 15px 7px -8px #8f8f8f;
+}
+
+.confirmationButton {
+  display: flex;
+  justify-content: space-between;
+}
+
+.yesButton,
+.noButton {
+  color: white;
+  padding: 10px 20px;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.yesButton {
+  background-color: crimson;
+}
+
+.noButton {
+  background-color: #3d77a5;
+}
+
+.yesButton:hover {
+  background-color: darkred;
+}
+
+.noButton:hover {
+  background-color: darkblue;
+}
