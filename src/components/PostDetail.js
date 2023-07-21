@@ -49,6 +49,8 @@ const PostDetail = () => {
             <h1>{post.title}</h1>
             <p>{post.postsText}</p>
             <p>{post.createdAt.toDate().toLocaleString()}</p>
+            {post.imageURL && <img src={post.imageURL} alt="Post" />}{" "}
+            {/* ここで画像を表示 */}
           </div>
           {replies.map((reply, index) => (
             <div key={index} className="replyContainer">
