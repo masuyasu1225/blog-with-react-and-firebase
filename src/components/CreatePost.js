@@ -4,28 +4,26 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth, db, storage } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { Editor, EditorState } from "draft-js"; // Draft.jsのインポート
 
 const CreatePost = ({ isAuth }) => {
   const [title, setTitle] = useState();
-  const [postText, setPostText] = useState();
-  const [file, setFile] = useState(null); // 追加: ファイルのstate
+  const [editorState, setEditorState] = useState(EditorState.createEmpty()); // Draft.jsのエディタステートを作成
+  const [file, setFile] = useState(null);
 
   const navigate = useNavigate();
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]); // 追加: ファイルの変更をハンドリング
+    setFile(e.target.files[0]);
   };
 
   const createPost = async () => {
-    // 新規: 画像をFirebase Storageにアップロード
     const storageRef = ref(storage, `images/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    // Listen for state changes, errors, and completion of the upload.
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        // Progress function
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log("Upload is " + progress + "% done");
@@ -34,18 +32,17 @@ const CreatePost = ({ isAuth }) => {
         console.log(error);
       },
       () => {
-        // Upload completed successfully, now we can get the download URL
         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
           console.log("File available at", downloadURL);
 
           await addDoc(collection(db, "posts"), {
             title: title,
-            postsText: postText,
+            postsText: editorState.getCurrentContent().getPlainText("\u0001"), // テキストエリアの代わりにDraft.jsのエディタステートを取得
             author: {
               username: auth.currentUser.displayName,
               id: auth.currentUser.uid,
             },
-            imageURL: downloadURL, // downloadURLを保存
+            imageURL: downloadURL,
             createdAt: serverTimestamp(),
           });
 
@@ -76,13 +73,10 @@ const CreatePost = ({ isAuth }) => {
         </div>
         <div className="inputPost">
           <div>投稿</div>
-          <textarea
-            placeholder="投稿内容を記入"
-            onChange={(e) => setPostText(e.target.value)}
-          ></textarea>
+          <Editor editorState={editorState} onChange={setEditorState} />{" "}
+          {/* テキストエリアの代わりにDraft.jsのエディタを配置 */}
         </div>
-        <input type="file" onChange={handleFileChange} />{" "}
-        {/* ファイル選択のinput */}
+        <input type="file" onChange={handleFileChange} />
         <button className="postButton" onClick={createPost}>
           投稿する
         </button>
