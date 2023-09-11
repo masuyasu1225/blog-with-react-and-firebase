@@ -75,7 +75,7 @@
 /* レスポンシブ対応 */
 @media (max-width: 600px) {
   .homePage .postContents {
-    width: 100%; /* 600pxから100%に変更して、全幅を使用 */
+    width: 80%;
     padding: 10px; /* パディングの量を減少 */
   }
 
