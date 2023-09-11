@@ -71,3 +71,18 @@
 .deleteButton:hover {
   background-color: darkred;
 }
+
+/* レスポンシブ対応 */
+@media (max-width: 600px) {
+  .homePage .postContents {
+    width: 100%; /* 600pxから100%に変更して、全幅を使用 */
+    padding: 10px; /* パディングの量を減少 */
+  }
+
+  /* ボタンのサイズを調整 */
+  .nameAndDeleteButton button {
+    padding: 5px 10px; /* パディングの量を減少 */
+    width: auto; /* 100pxから自動に変更 */
+    font-size: 14px; /* 文字サイズを小さく */
+  }
+}

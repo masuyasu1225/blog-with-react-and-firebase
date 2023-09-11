@@ -24,7 +24,7 @@
 }
 
 .titleForm {
-  width: 480px;
+  width: 95%;
   height: 30px;
   outline: none;
   padding: 0 7px;
@@ -52,4 +52,12 @@
 .postButton:hover {
   transform: translateY(5px);
   box-shadow: none;
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 600px) {
+  .postContainer {
+    width: 90%;
+    padding: 0px 20px;
+  }
 }
